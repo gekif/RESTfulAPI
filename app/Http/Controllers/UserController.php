@@ -95,11 +95,11 @@ class UserController extends ApiController
         }
 
         if ($request->has('admin')) {
+
             if (!$user->isVerified()) {
-                return response()->json([
-                    'error' => 'Only verified users can modify the admin field',
-                    'code' => 400
-                ], 409);
+                return $this->errorResponse(
+                    'Only verified users can modify the admin field',
+                    409);
             }
 
             $user->admin = $request->admin;
@@ -107,10 +107,9 @@ class UserController extends ApiController
         }
 
         if (!$user->isDirty()) {
-            return response()->json([
-                'error' => 'You need to specify a different value to update',
-                'code' => 422
-            ], 422);
+            return $this->errorResponse(
+                'You need to specify a different value to update',
+                422);
         }
 
         $user->save();
