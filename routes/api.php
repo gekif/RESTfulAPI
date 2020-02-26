@@ -43,7 +43,7 @@ Route::resource('transactions', 'TransactionController', [
     ]
 ]);
 
-Route::resource('transactions.categories', 'TransactionCategoryController', [
+Route::resource('transactions.categories', 'Transaction\TransactionCategoryController', [
     'only' => [
         'index'
     ]
