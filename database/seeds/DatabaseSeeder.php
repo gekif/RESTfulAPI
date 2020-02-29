@@ -32,6 +32,10 @@ class DatabaseSeeder extends Seeder
         DB::statement('TRUNCATE TABLE transactions CASCADE');
         DB::statement('TRUNCATE TABLE category_product CASCADE');
 
+        User::flushEventListeners();
+        Category::flushEventListeners();
+        Product::flushEventListeners();
+        Transaction::flushEventListeners();
 
         $usersQuantity = 200;
         $categoriesQuantity = 30;
@@ -39,6 +43,7 @@ class DatabaseSeeder extends Seeder
         $transactionsQuantity = 1000;
 
         factory(User::class, $usersQuantity)->create();
+
         factory(Category::class, $categoriesQuantity)->create();
 
         factory(Product::class, $productsQuantity)->create()->each(

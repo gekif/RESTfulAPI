@@ -40,7 +40,7 @@ class UserController extends ApiController
 
         $data['password'] = bcrypt($request->password);
         $data['verified'] = User::UNVERIFIED_USER;
-        $data['verificationToken'] = User::generateVerificationCode();
+        $data['verification_token'] = User::generateVerificationCode();
         $data['admin'] = User::REGULAR_USER;
 
         $user = User::create($data);
@@ -71,7 +71,7 @@ class UserController extends ApiController
     public function update(Request $request, User $user)
     {
         $rules = [
-            'email' => 'email|unique:users,email' . $user->id,
+            'email' => 'email|unique:users,email',
             'password' => 'min:6|confirmed',
             'admin' => 'in:' . User::ADMIN_USER . ',' . User::REGULAR_USER
         ];
@@ -127,6 +127,21 @@ class UserController extends ApiController
         $user->delete();
 
         return $this->showOne($user);
+    }
+
+
+    public function verify($token)
+    {
+        $user = User::where('verification_token', $token)
+             ->firstOrFail();
+
+        $user->verified = User::VERIFIED_USER;
+
+        $user->verification_token = null;
+
+        $user->save();
+
+        return $this->showMessage('The account has been verified successfully');
     }
 
 }

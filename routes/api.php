@@ -180,3 +180,5 @@ Route::resource('users', 'UserController', [
         'create', 'edit'
     ]
 ]);
+
+Route::name('verify')->get('users/verify/{token}', 'UserController@verify');
