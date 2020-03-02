@@ -175,6 +175,8 @@ Route::resource('transactions.sellers', 'TransactionSellerController', [
 /**
  * Users
  */
+Route::name('me')->get('users/me', 'UserController@me');
+
 Route::resource('users', 'UserController', [
     'except' => [
         'create', 'edit'
