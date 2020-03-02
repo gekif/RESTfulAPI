@@ -20,6 +20,9 @@ class UserController extends ApiController
 
         $this->middleware('transform.input:' . UserTransformer::class)
             ->only(['store', 'update']);
+
+        $this->middleware('scope:manage-account')
+            ->only(['show', 'update']);
     }
 
 
