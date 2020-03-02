@@ -97,7 +97,7 @@ class SellerProductController extends ApiController
 
         $this->checkSeller($seller, $product);
 
-        $product->fill($request->intersect([
+        $product->fill($request->only([
             'name',
             'description',
             'quantity'

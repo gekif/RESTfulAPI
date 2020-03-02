@@ -80,7 +80,7 @@ class CategoryController extends ApiController
     {
         $this->allowedAdminAction();
 
-        $category->fill($request->intersect([
+        $category->fill($request->only([
             'name',
             'description'
         ]));
