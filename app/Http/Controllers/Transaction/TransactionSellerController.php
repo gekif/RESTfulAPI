@@ -12,6 +12,9 @@ class TransactionSellerController extends ApiController
 
         $this->middleware('scope:read-general')
             ->only('index');
+
+        $this->middleware('can:view,transaction')
+            ->only('index');
     }
 
 
